@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>The Financial Machine of the Matrix – Buy Now</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      background-color: #f9f9f9;
+      color: #222;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .container {
+      background-color: white;
+      max-width: 600px;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    h1 {
+      font-size: 2.2rem;
+      margin-bottom: 10px;
+      color: #2c3e50;
+    }
+    p.description {
+      font-size: 1.1rem;
+      color: #555;
+      margin-bottom: 25px;
+    }
+    .price {
+      font-size: 1.5rem;
+      color: #27ae60;
+      font-weight: bold;
+      margin-bottom: 30px;
+    }
+    #paypal-button-container {
+      margin-top: 20px;
+    }
+    footer {
+      margin-top: 40px;
+      font-size: 0.9rem;
+      color: #888;
+    }
+    nav {
+      margin-bottom: 20px;
+      text-align: left;
+    }
+    nav a {
+      text-decoration: none;
+      color: #3498db;
+      font-weight: bold;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <nav><a href="download.html">Download Page</a></nav>
+    <h1>The Financial Machine of the Matrix</h1>
+    <p class="description">
+      Discover the secrets behind the financial system and learn how money really works in today’s world. This book reveals the inner workings of the financial matrix and helps you build your wealth intelligently.
+    </p>
+    <div class="price">$4.00</div>
+
+    <!-- PayPal Button Container -->
+    <div id="paypal-button-container"></div>
+
+    <footer>
+      &copy; 2026 Your Name. All rights reserved.
+    </footer>
+  </div>
+
+  <!-- Load PayPal SDK -->
+  <script src="https://www.paypal.com/sdk/js?client-id=AR6dTogOGMIS6XxXXqI5uvakOLj5gYpX84Q-Tidv7DJmOFS_Df9244TXEThsgM-JNxIVWHYErLW7Wr1x&currency=USD"></script>
+  <script>
+    paypal.Buttons({
+      createOrder: function(data, actions) {
+        return actions.order.create({
+          purchase_units: [{
+            amount: {
+              value: '4.00'
+            }
+          }]
+        });
+      },
+      onApprove: function(data, actions) {
+        return actions.order.capture().then(function(details) {
+          alert('Thank you, ' + details.payer.name.given_name + '! Your transaction is complete.');
+          window.location.href = 'download.html';
+        });
+      }
+    }).render('#paypal-button-container');
+  </script>
+</body>
+</html>
