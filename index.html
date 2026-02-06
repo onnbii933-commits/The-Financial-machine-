@@ -1,109 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>The Financial Machine of the Matrix – Buy Now</title>
+  <meta charset="UTF-8">
+  <title>The Financial Machine of the Matrix</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <style>
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      margin: 0;
+      font-family: Arial, sans-serif;
       background: #f4f4f4;
+      margin: 0;
+      padding: 20px;
       display: flex;
       justify-content: center;
       align-items: center;
       min-height: 100vh;
-      padding: 20px;
     }
-    .container {
-      background: #ffffff;
+    .box {
+      background: #fff;
       max-width: 600px;
       padding: 35px;
       border-radius: 12px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
       text-align: center;
     }
     h1 {
       color: #2c3e50;
-      margin-bottom: 15px;
     }
     p {
       color: #555;
       font-size: 1.1rem;
-      margin-bottom: 25px;
+      margin-bottom: 20px;
     }
     .price {
       font-size: 1.6rem;
       color: #27ae60;
       font-weight: bold;
-      margin-bottom: 30px;
-    }
-    nav {
-      text-align: left;
-      margin-bottom: 20px;
-    }
-    nav a {
-      text-decoration: none;
-      color: #3498db;
-      font-weight: bold;
-    }
-    nav a:hover {
-      text-decoration: underline;
-    }
-    button.paypal-btn {
-      background: #ffc439;
-      border: none;
-      padding: 15px 40px;
-      font-size: 1.2rem;
-      font-weight: bold;
-      border-radius: 6px;
-      cursor: pointer;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-    }
-    button.paypal-btn:hover {
-      background: #e6b631;
+      margin-bottom: 25px;
     }
     footer {
-      margin-top: 40px;
+      margin-top: 30px;
       font-size: 0.9rem;
       color: #777;
     }
   </style>
 </head>
-
 <body>
-  <div class="container">
-    <nav>
-      <a href="download.html">Download Page</a>
-    </nav>
 
-    <h1>The Financial Machine of the Matrix</h1>
+<div class="box">
+  <h1>The Financial Machine of the Matrix</h1>
 
-    <p>
-      Learn how the financial system truly works and uncover the hidden mechanics
-      behind money, power, and control. This book breaks the matrix.
-    </p>
+  <p>
+    Discover how the financial system really works and break free
+    from the hidden mechanics of the matrix.
+  </p>
 
-    <div class="price">$4.00</div>
+  <div class="price">$4.00</div>
 
-    <!-- PAYPAL BUY NOW BUTTON -->
-    <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
-      <input type="hidden" name="cmd" value="_xclick">
-      <input type="hidden" name="business" value="motsoenengmathapelo56@gmail.com">
-      <input type="hidden" name="item_name" value="The Financial Machine of the Matrix">
-      <input type="hidden" name="amount" value="4.00">
-      <input type="hidden" name="currency_code" value="USD">
-      <input type="hidden" name="return" value="https://your-vercel-domain.vercel.app/download.html">
-      <input type="hidden" name="cancel_return" value="https://your-vercel-domain.vercel.app/">
-      <button class="paypal-btn" type="submit">Buy Now with PayPal</button>
-    </form>
+  <!-- PayPal Smart Button -->
+  <div id="paypal-button-container"></div>
 
-    <footer>
-      DE BOOK
-    </footer>
-  </div>
+  <footer>DE BOOK</footer>
+</div>
+
+<!-- PayPal SDK (guest + card enabled) -->
+<script src="https://www.paypal.com/sdk/js?client-id=AR6dTogOGMIS6XxXXqI5uvakOLj5gYpX84Q-Tidv7DJmOFS_Df9244TXEThsgM-JNxIVWHYErLW7Wr1x&currency=USD&intent=capture&enable-funding=card"></script>
+
+<script>
+paypal.Buttons({
+  style: {
+    layout: 'vertical',
+    color: 'gold',
+    shape: 'rect',
+    label: 'pay'
+  },
+
+  createOrder: function(data, actions) {
+    return actions.order.create({
+      purchase_units: [{
+        amount: {
+          value: '4.00'
+        },
+        description: 'The Financial Machine of the Matrix'
+      }]
+    });
+  },
+
+  onApprove: function(data, actions) {
+    return actions.order.capture().then(function(details) {
+      window.location.href =
+        "https://the-financial-machine-j2my.vercel.app/download.html?paid=true";
+    });
+  }
+
+}).render('#paypal-button-container');
+</script>
+
 </body>
 </html>
-
-
